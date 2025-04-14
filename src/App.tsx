@@ -20,6 +20,12 @@ import ServicesPage from "./pages/Services/ServicesPage";
 import VendorsPage from "./pages/Vendors/VendorsPage";
 import SettingsPage from "./pages/Settings/SettingsPage";
 
+// New Pages
+import UsersPage from "./pages/Users/UsersPage";
+import PaymentsPage from "./pages/Payments/PaymentsPage";
+import InvoicesPage from "./pages/Invoices/InvoicesPage";
+import NotificationsPage from "./pages/Notifications/NotificationsPage";
+
 // Not Found
 import NotFound from "./pages/NotFound";
 
@@ -105,6 +111,43 @@ const App = () => (
                 element={
                   <ProtectedRoute>
                     <VendorsPage />
+                  </ProtectedRoute>
+                }
+              />
+              
+              {/* New Routes */}
+              <Route
+                path="/users"
+                element={
+                  <ProtectedRoute>
+                    <UsersPage />
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/payments"
+                element={
+                  <ProtectedRoute>
+                    <PaymentsPage />
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/invoices"
+                element={
+                  <ProtectedRoute>
+                    <InvoicesPage />
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/notifications"
+                element={
+                  <ProtectedRoute>
+                    <NotificationsPage />
                   </ProtectedRoute>
                 }
               />

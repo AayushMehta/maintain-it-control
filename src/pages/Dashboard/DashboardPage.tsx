@@ -79,6 +79,11 @@ const DashboardPage = () => {
   const datesWithJobs = React.useMemo(() => {
     return jobs.map(job => new Date(job.deadline));
   }, [jobs]);
+  
+  // Handle navigation
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <DashboardLayout>
@@ -136,7 +141,7 @@ const DashboardPage = () => {
                     <Button
                       variant="outline"
                       className="flex h-full justify-start gap-2"
-                      onClick={() => navigate("/jobs/create")}
+                      onClick={() => handleNavigation("/jobs/create")}
                     >
                       <Briefcase className="h-4 w-4" />
                       <div className="flex flex-col items-start text-left">
@@ -152,7 +157,7 @@ const DashboardPage = () => {
                     <Button
                       variant="outline"
                       className="flex h-full justify-start gap-2"
-                      onClick={() => navigate("/users")}
+                      onClick={() => handleNavigation("/users")}
                     >
                       <Truck className="h-4 w-4" />
                       <div className="flex flex-col items-start text-left">
@@ -168,7 +173,7 @@ const DashboardPage = () => {
                     <Button
                       variant="outline"
                       className="flex h-full justify-start gap-2"
-                      onClick={() => navigate("/invoices")}
+                      onClick={() => handleNavigation("/invoices")}
                     >
                       <FileText className="h-4 w-4" />
                       <div className="flex flex-col items-start text-left">
@@ -184,7 +189,7 @@ const DashboardPage = () => {
                     <Button
                       variant="outline"
                       className="flex h-full justify-start gap-2"
-                      onClick={() => navigate("/vendors")}
+                      onClick={() => handleNavigation("/vendors")}
                     >
                       <Truck className="h-4 w-4" />
                       <div className="flex flex-col items-start text-left">
@@ -200,7 +205,7 @@ const DashboardPage = () => {
                     <Button
                       variant="outline"
                       className="flex h-full justify-start gap-2"
-                      onClick={() => navigate("/jobs")}
+                      onClick={() => handleNavigation("/jobs")}
                     >
                       <Briefcase className="h-4 w-4" />
                       <div className="flex flex-col items-start text-left">
@@ -216,7 +221,7 @@ const DashboardPage = () => {
                     <Button
                       variant="outline"
                       className="flex h-full justify-start gap-2"
-                      onClick={() => navigate("/invoices")}
+                      onClick={() => handleNavigation("/invoices")}
                     >
                       <BarChart3 className="h-4 w-4" />
                       <div className="flex flex-col items-start text-left">
@@ -242,7 +247,7 @@ const DashboardPage = () => {
                     variant="ghost"
                     size="sm"
                     className="gap-1 text-xs"
-                    onClick={() => navigate("/jobs")}
+                    onClick={() => handleNavigation("/jobs")}
                   >
                     View All <ArrowRight className="h-3 w-3" />
                   </Button>
@@ -253,7 +258,8 @@ const DashboardPage = () => {
                   {jobs.slice(0, 5).map((job) => (
                     <div
                       key={job.id}
-                      className="flex items-center rounded-md border p-3 text-sm"
+                      className="flex items-center rounded-md border p-3 text-sm cursor-pointer hover:bg-gray-50"
+                      onClick={() => handleNavigation(`/jobs/${job.id}`)}
                     >
                       <div className="flex-1">
                         <div className="font-medium">{job.title}</div>
@@ -332,7 +338,8 @@ const DashboardPage = () => {
                       selectedDateJobs.map((job) => (
                         <div
                           key={job.id}
-                          className="rounded-md border p-2 text-xs"
+                          className="rounded-md border p-2 text-xs cursor-pointer hover:bg-gray-50"
+                          onClick={() => handleNavigation(`/jobs/${job.id}`)}
                         >
                           <div className="font-medium">{job.title}</div>
                           <div className="text-muted-foreground">{job.serviceType}</div>
@@ -350,13 +357,29 @@ const DashboardPage = () => {
             
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle>Top Vendors</CardTitle>
-                <CardDescription>Most active suppliers</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Top Vendors</CardTitle>
+                    <CardDescription>Most active suppliers</CardDescription>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="gap-1 text-xs"
+                    onClick={() => handleNavigation("/vendors")}
+                  >
+                    View All <ArrowRight className="h-3 w-3" />
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   {vendors.slice(0, 4).map((vendor) => (
-                    <div key={vendor.id} className="flex items-center gap-2 rounded-md border p-2">
+                    <div 
+                      key={vendor.id} 
+                      className="flex items-center gap-2 rounded-md border p-2 cursor-pointer hover:bg-gray-50"
+                      onClick={() => handleNavigation("/vendors")}
+                    >
                       <div
                         className="flex h-8 w-8 items-center justify-center rounded-full"
                         style={{ backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}80` }}

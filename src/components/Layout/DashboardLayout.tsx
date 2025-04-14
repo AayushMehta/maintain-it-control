@@ -67,6 +67,13 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
     }
   };
 
+  // Mock notifications
+  const notifications = [
+    { id: 1, title: "New job assigned", time: "5 min ago" },
+    { id: 2, title: "Payment received", time: "1 hour ago" },
+    { id: 3, title: "Job status updated", time: "3 hours ago" },
+  ];
+
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
@@ -101,14 +108,39 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
             </div>
 
             <div className="flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative"
-              >
-                <Bell className="h-5 w-5" />
-                <span className="absolute right-1 top-1 flex h-2 w-2 rounded-full bg-red-500"></span>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="relative"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <Bell className="h-5 w-5" />
+                    <span className="absolute right-1 top-1 flex h-2 w-2 rounded-full bg-red-500"></span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-80">
+                  <DropdownMenuLabel className="flex items-center justify-between">
+                    <span>Notifications</span>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-xs"
+                      onClick={() => navigate("/notifications")}
+                    >
+                      View All
+                    </Button>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {notifications.map((notification) => (
+                    <DropdownMenuItem key={notification.id} className="flex flex-col items-start p-4">
+                      <span className="font-medium">{notification.title}</span>
+                      <span className="text-xs text-muted-foreground">{notification.time}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
