@@ -74,6 +74,11 @@ const DashboardPage = () => {
   };
 
   const selectedDateJobs = date ? getJobsForDate(date) : [];
+  
+  // Create an array of dates that have jobs
+  const datesWithJobs = React.useMemo(() => {
+    return jobs.map(job => new Date(job.deadline));
+  }, [jobs]);
 
   return (
     <DashboardLayout>
@@ -303,13 +308,18 @@ const DashboardPage = () => {
                   classNames={{
                     day_today: "bg-primary/10 text-primary font-bold",
                     day_selected: "bg-primary text-primary-foreground",
-                    day: ({ date: calendarDate }) => {
-                      const jobs = getJobsForDate(calendarDate);
-                      if (jobs.length > 0) {
-                        return "relative before:absolute before:bottom-0 before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rounded-full before:bg-primary";
-                      }
-                      return "";
-                    },
+                    day: cn({
+                      "relative before:absolute before:bottom-0 before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rounded-full before:bg-primary": 
+                        datesWithJobs.some(jobDate => 
+                          jobDate.getDate() === date?.getDate() && 
+                          jobDate.getMonth() === date?.getMonth() && 
+                          jobDate.getFullYear() === date?.getFullYear()
+                        )
+                    })
+                  }}
+                  components={{
+                    IconLeft: ({ ..._props }) => <CalendarIcon className="h-4 w-4" />,
+                    IconRight: ({ ..._props }) => <CalendarIcon className="h-4 w-4" />,
                   }}
                 />
                 
