@@ -1,7 +1,9 @@
+
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DashboardLayout } from "@/components/Layout/DashboardLayout";
-import { useData, useAuth, JobStatus, Bid } from "@/contexts/DataContext";
+import { useData, JobStatus, Bid } from "@/contexts/DataContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
 import { format } from "date-fns";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,7 +21,7 @@ import {
   XCircle, 
   User, 
   Send, 
-  Tool, 
+  Wrench, 
   Building2, 
   AlertCircle,
   Edit,
@@ -231,7 +233,7 @@ const JobDetailPage = () => {
                   
                   <div className="flex items-center gap-2">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
-                      <Tool className="h-4 w-4 text-purple-600" />
+                      <Wrench className="h-4 w-4 text-purple-600" />
                     </div>
                     <div>
                       <div className="text-sm font-medium">Service Type</div>

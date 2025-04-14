@@ -303,8 +303,8 @@ const DashboardPage = () => {
                   classNames={{
                     day_today: "bg-primary/10 text-primary font-bold",
                     day_selected: "bg-primary text-primary-foreground",
-                    day: (date) => {
-                      const jobs = getJobsForDate(date);
+                    day: ({ date: calendarDate }) => {
+                      const jobs = getJobsForDate(calendarDate);
                       if (jobs.length > 0) {
                         return "relative before:absolute before:bottom-0 before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rounded-full before:bg-primary";
                       }
